@@ -1,0 +1,8 @@
+{
+    "plugins":{
+        "installed":[
+            "wheather"
+        ],
+        "disabled":[]
+    }
+}

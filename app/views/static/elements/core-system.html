@@ -1,0 +1,81 @@
+<link rel="import" href="../bower_components/iron-ajax/iron-request.html">
+
+<dom-module id="core-system">
+
+  <template>
+
+    <style>
+      /* local DOM styles go here */
+      :host {
+        display: inline-block;
+      }
+    </style>
+
+    <!-- local DOM goes here -->
+    <iron-request id="xhr"></iron-request>
+    <span>Component Loaded:</span>
+    <template is="dom-repeat" items="{{plugins}}">
+        <div>Plugin name: <span>{{item}}</span></div>
+    </template>
+    <div id='container'></div>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'core-system',
+    properties:{
+      stack: Array,
+      plugins: Array
+    },
+    ready: function(){
+      loadPluginToStack('pluginmanager');
+    },
+    loadPluginToStack: function(name,method=''){
+      self = this;
+      if(method!=''){
+        method = '/'+method;
+      }
+      this.$.xhr.send({url:'/'+name+method}).then(function(e){
+        var obj = self.toJSON(e.response);
+
+        if(obj['url']){
+          self.importHref(obj['url'], function(e) {
+            var newElement = document.createElement(obj['view']);
+
+            if(obj['parameters']){
+              param = obj['parameters'];
+              for(var key in param){
+                newElement[key] = param[key];
+              }
+            }
+
+            stack.push(newElement);
+            Polymer.dom(this.$.container).appendChild(newElement);  
+          });
+        }
+      });
+    },
+    validateParameters: function(obj){
+      if(obj['template'] != null && obj['param'] != null){
+        return true
+      }
+      else if(obj['template'] != null){
+        return true
+      }
+      else{
+        return false
+      }
+    },
+    callPluginMethod: function(plugin, method){
+      if(plugin != null && method != null){
+        
+      }
+    },
+    toJSON: function(str){
+      var obj = JSON.stringify(eval("(" + str + ")"));
+      return JSON.parse(obj);
+    }
+  });
+  </script>
+
+</dom-module>

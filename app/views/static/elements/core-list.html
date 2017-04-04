@@ -1,0 +1,27 @@
+<dom-module id="core-list">
+
+  <template>
+
+    <style>
+      /* local DOM styles go here */
+      :host {
+        display: inline-block;
+      }
+    </style>
+
+    <!-- local DOM goes here -->
+    <template is="dom-repeat" items="{{list}}">
+        <div>Item: <span>{{item}}</span></div>
+    </template>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'core-list',
+    properties:{
+      list: Array
+    }
+  });
+  </script>
+
+</dom-module>

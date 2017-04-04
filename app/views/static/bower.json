@@ -1,0 +1,20 @@
+{
+  "name": "plugin-system",
+  "description": "Plugin system",
+  "main": "../desktopapp.py",
+  "authors": [
+    "Junior Carvalho"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#^1.2.0"
+  }
+}
